@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>3D Car animation model-viewer &amp; GSAP</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;500;800&display=swap" rel="stylesheet">
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+    }
+
+    model-viewer {
+      --poster-color: #e2e8f0;
+      --progress-bar-color: rgba(30, 41, 59, .5);
+      --progress-bar-height: 10px;
+    }
+
+    [data-color]::before {
+      content: "";
+      display: block;
+      position: absolute;
+      inset: -5px;
+      border: 2px solid transparent;
+      border-radius: 999px;
+    }
+
+    [data-color].active::before,
+    [data-color]:focus::before {
+      border-color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="page"
+    class="h-full bg-gradient-to-r from-transparent to-slate-200/30 bg-slate-200 text-slate-900 transition-colors antialiased relative overflow-hidden select-none">
+    <div id="loading" class="absolute inset-0 z-50 bg-slate-200/80 flex items-center justify-center">
+      <svg class="animate-spin h-10 w-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2">
+          <circle class="opacity-20" cx="12" cy="12" r="11" />
+          <path d="m23 12c0 6.1-4.9 11-11 11" />
+        </g>
+      </svg>
+    </div>
+    <model-viewer class="absolute left-0 top-0 w-full h-full z-30 pointer-events-none"
+      src="scene.gltf" exposure="1"
+      shadow-intensity="3" camera-orbit="0deg 10deg 20%" camera-target="-9.5m -8m 5m"></model-viewer>
+    <div class="absolute left-0 top-1/2 -translate-y-1/2 z-0 pointer-events-none">
+      <div
+        class="title opacity-0 text-[clamp(200px,40vh,500px)] font-bold text-slate-900/5 opacity-0 pointer-events-none flex whitespace-nowrap will-change-transform">
+        <span class="mx-20">240K GT</span>
+        <span class="mx-20">240K GT</span>
+        <span class="mx-20">240K GT</span>
+        <span class="mx-20">240K GT</span>
+        <span class="mx-20">240K GT</span>
+        <span class="mx-20">240K GT</span>
+      </div>
+    </div>
+    <div class="swiper w-full h-full absolute left-0 top-0 z-40 opacity-0">
+      <div class="swiper-wrapper">
+        <section class="swiper-slide w-full h-full flex flex-col justify-end relative p-[5vw]">
+          <div id="inner-1"
+            class="flex flex-col items-start gap-4 lg:gap-8 w-full sm:w-2/3 lg:w-1/3 3xl:w-1/4 md:text-lg">
+            <h1 class="text-[clamp(26px,4vw,60px)] leading-none font-light uppercase">
+              Datsun
+              <br class="hidden lg:block" />
+              <span class="font-bold">240K GT</span>
+            </h1>
+            <p>
+              Introducing a Masterpiece, the combination of all Datsun’s great automotive innovations.
+            </p>
+            <strong class="hidden lg:block">
+              From ₹ 31,14,202.50/-
+            </strong>
+            <div class="flex flex-wrap gap-2">
+              <a href="#section-2" data-slide-to="1"
+                class="uppercase px-6 py-3 md:px-12 md:py-4 rounded-full text-xs md:text-base tracking-wider text-slate-50 bg-blue-700 hover:bg-blue-600 active:bg-blue-900 transition-colors grow text-center">
+                Learn more
+              </a>
+              <a href="" target="_blank" rel="noopener"
+                class="uppercase px-6 py-3 md:px-12 md:py-4 rounded-full text-xs md:text-base tracking-wider bg-transparent hover:bg-slate-50/50 active:bg-white transition-colors grow text-center">Contact
+                us</a>
+            </div>
+          </div>
+        </section>
+        <section
+          class="swiper-slide w-full h-full flex flex-col items-end justify-end lg:justify-center relative z-50 px-[5vw] py-[5vh]">
+          <div id="inner-2"
+            class="flex flex-col items-start gap-5 lg:gap-8 w-full sm:w-2/3 lg:w-1/3 2xl:w-1/4 p-[2.5vw] mb-8 lg:mb-0 sm:box-content rounded-xl sm:rounded-[2vw] md:text-lg text-slate-50 bg-zinc-900/20 backdrop-blur-lg">
+            <h2 class="text-[clamp(22px,3vw,36px)] leading-[110%]">
+              A compact car with an exceptional power-to-weight ratio
+            </h2>
+            <p class="mb-10 lg:mb-7">
+              In addition to all the usual Datsun free extra, the 240K gives you ultimate refinements like electric rear
+              window defroster; adjustable tilt steering wheel.
+            </p>
+            <a href="#section-3" data-slide-to="2"
+              class="uppercase px-12 py-4 rounded-full text-xs md:text-base tracking-wider text-slate-50 bg-blue-700 hover:bg-blue-600 active:bg-blue-900 transition-colors absolute bottom-0 translate-y-1/2">
+              Personalise
+            </a>
+          </div>
+        </section>
+        <section class="swiper-slide w-full h-full flex flex-col items-center relative px-[5vw] py-[5vh]">
+          <div id="inner-3"
+            class="relative z-50 flex flex-col items-center gap-4 text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.9)]">
+            <h4 class="text-[clamp(22px,3vw,36px)]">
+              Paint
+            </h4>
+            <div class="flex gap-8">
+              <button aria-label="White" data-color="#CBD5E1"
+                class="active relative rounded-full w-[40px] h-[30px] bg-gradient-to-r from-slate-50 to-slate-500 bg-slate-200 outline-0 hover:scale-110 focus:scale-110 transition-all"></button>
+              <button aria-label="Blue" data-color="#355F99"
+                class="relative rounded-full w-[40px] h-[30px] bg-gradient-to-r from-blue-500 to-blue-900 bg-blue-700 outline-0 hover:scale-110 focus:scale-110 transition-all"></button>
+              <button aria-label="Red" data-color="#923939"
+                class="relative rounded-full w-[40px] h-[30px] bg-gradient-to-r from-red-400 to-red-800 bg-red-600 outline-0 hover:scale-110 focus:scale-110 transition-all"></button>
+              <button aria-label="Green" data-color="#32A852"
+                class="relative rounded-full w-[40px] h-[30px] bg-gradient-to-r from-green-400 to-green-800 bg-green-600 outline-0 hover:scale-110 focus:scale-110 transition-all"></button>
+              <button aria-label="Black" data-color="#333"
+                class="relative rounded-full w-[40px] h-[30px] bg-gradient-to-r from-black to-gray-700 bg-gray-600 outline-0 hover:scale-110 focus:scale-110 transition-all"></button>
+              <button aria-label="Pink" data-color="#FF69B4"
+                class="relative rounded-full w-[40px] h-[30px] bg-gradient-to-r from-pink-500 to-pink-900 bg-pink-700 outline-0 hover:scale-110 focus:scale-110 transition-all"></button>
+            </div>
+          </div>
+        </section>
+        <!-- New Slide 4 -->
+        <section class="swiper-slide w-full h-full flex flex-col items-start justify-end relative p-[5vw]">
+          <div id="inner-4"
+            class="flex flex-col items-start gap-4 lg:gap-8 w-full sm:w-2/3 lg:w-1/3 3xl:w-1/4 md:text-lg">
+            <h2 class="text-[clamp(22px,3vw,36px)] leading-[110%]">
+              Advanced Safety Features
+            </h2>
+            <p>
+              The Datsun 240K GT comes equipped with cutting-edge safety systems, including adaptive cruise control and lane departure warnings.
+            </p>
+            <a href="#section-5" data-slide-to="4"
+              class="uppercase px-6 py-3 md:px-12 md:py-4 rounded-full text-xs md:text-base tracking-wider text-slate-50 bg-blue-700 hover:bg-blue-600 active:bg-blue-900 transition-colors grow text-center">
+              Explore Safety
+            </a>
+          </div>
+        </section>
+        <!-- New Slide 5 -->
+        <section class="swiper-slide w-full h-full flex flex-col items-end justify-center relative px-[5vw] py-[5vh]">
+          <div id="inner-5"
+            class="flex flex-col items-start gap-5 lg:gap-8 w-full sm:w-2/3 lg:w-1/3 2xl:w-1/4 p-[2.5vw] mb-8 lg:mb-0 sm:box-content rounded-xl sm:rounded-[2vw] md:text-lg text-slate-50 bg-zinc-900/20 backdrop-blur-lg">
+            <h2 class="text-[clamp(22px,3vw,36px)] leading-[110%]">
+              Performance Engineering
+            </h2>
+            <p class="mb-10 lg:mb-7">
+              Experience unparalleled performance with the 240K GT’s turbocharged engine and precision-tuned suspension.
+            </p>
+            <a href="" target="_blank" rel="noopener"
+              class="uppercase px-12 py-4 rounded-full text-xs md:text-base tracking-wider text-slate-50 bg-blue-700 hover:bg-blue-600 active:bg-blue-900 transition-colors absolute bottom-0 translate-y-1/2">
+              Book a Test Drive
+            </a>
+          </div>
+        </section>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+    <picture class="absolute left-0 top-1/2 w-full h-full z-0 opacity-0">
+      <img class="w-full h-full object-cover" src="images/bg-road-500.jpg" alt="Landscape" />
+    </picture>
+  </div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.6/swiper-bundle.min.js'></script>
+  <script src='https://unpkg.co/gsap@3/dist/gsap.min.js'></script>
+  <script src='https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js'></script>
+  <script>
+    /* VARIABLES */
+    const page = document.getElementById('page'),
+      loading = document.getElementById('loading'),
+      slider = document.querySelector('.swiper'),
+      inner1 = document.getElementById('inner-1'),
+      inner2 = document.getElementById('inner-2'),
+      inner3 = document.getElementById('inner-3'),
+      inner4 = document.getElementById('inner-4'),
+      inner5 = document.getElementById('inner-5'),
+      car = document.querySelector('model-viewer'),
+      slideToButtons = document.querySelectorAll('[data-slide-to]'),
+      colorButtons = document.querySelectorAll('[data-color]'),
+      title = document.querySelectorAll('.title'),
+      bgImage = document.querySelector('picture');
+
+    const innerAnimationActive = {
+      duration: 1,
+      delay: 0.5,
+      ease: Power4.easeOut,
+      autoAlpha: 1,
+      yPercent: 0,
+    };
+    const innerAnimationHidden = {
+      duration: 1,
+      ease: Power4.easeOut,
+      autoAlpha: 0,
+      yPercent: -20,
+    };
+
+    /* VERTICAL SLIDER */
+    const swiper = new Swiper(slider, {
+      direction: 'vertical',
+      speed: 1500,
+      grabCursor: true,
+      touchRatio: 2,
+      threshold: 1,
+      preventInteractionOnTransition: true,
+      mousewheel: {
+        forceToAxis: true,
+      },
+      keyboard: {
+        enabled: true,
+      },
+      on: {
+        init: () => {
+          /* SLIDER & TITLE FADE IN */
+          gsap.to(slider, {
+            duration: 1,
+            ease: Power4.easeOut,
+            autoAlpha: 1,
+          });
+          gsap.to(title, innerAnimationActive);
+
+          /* TITLE INFINITE LOOP */
+          title.forEach(function (e, i) {
+            let row_width = e.getBoundingClientRect().width;
+            let row_item_width = e.children[0].getBoundingClientRect().width;
+            let offset = ((2 * row_item_width) / row_width) * 100 * -1;
+            let duration = 30 * (i + 1);
+
+            gsap.set(e, {
+              xPercent: 0
+            });
+
+            gsap.to(e, {
+              duration: duration,
+              ease: "none",
+              xPercent: offset,
+              repeat: -1
+            });
+          });
+        }
+      },
+    });
+
+    /* ON LOAD */
+    car.addEventListener('load', (event) => {
+      /* FADE OUT LOADING SCREEN */
+      gsap.to(loading, {
+        duration: 1,
+        ease: Power4.easeOut,
+        autoAlpha: 0,
+      });
+
+      /* 3D CHARACTERISTICS */
+      const materials = car.model.materials,
+        paint = materials[10];
+
+      /* CHANGE CAR PAINT */
+      paint.pbrMetallicRoughness.setBaseColorFactor('#CBD5E1');
+
+      /* CAR POSITION */
+      const exposure1 = '1',
+        orbit1 = '0deg 50deg 50%',
+        exposure2 = '0.4',
+        orbit2 = '-60deg 60deg 50%',
+        exposure3 = '1',
+        orbit3 = '44deg 83deg 50%',
+        exposure4 = '0.8',
+        orbit4 = '20deg 70deg 50%',
+        exposure5 = '1.2',
+        orbit5 = '-30deg 45deg 50%';
+      let target1,
+        target2,
+        target3,
+        target4,
+        target5;
+
+      const setCarPosition = () => {
+        if (window.innerWidth <= 900) {
+          target1 = '-9.5m -11.9m 4.2m';
+          target2 = '-8.8m -12.7m 4.8m';
+          target3 = '-9.8m -10m 3.8m';
+          target4 = '-10m -11m 4m';
+          target5 = '-9m -12m 4.5m';
+        } else {
+          target1 = '-9.5m -12.9m 2.2m';
+          target2 = '-5.8m -12.5m 3.8m';
+          target3 = '-12m -10.7m 1.7m';
+          target4 = '-10.5m -11.5m 2.5m';
+          target5 = '-9.2m -12.2m 3m';
+        }
+      }
+      setCarPosition();
+
+      const carPosition = (exposure, orbit, target) => {
+        return (
+          {
+            duration: 1.5,
+            ease: Power4.easeOut,
+            attr: {
+              ['exposure']: exposure,
+              ['camera-orbit']: orbit,
+              ['camera-target']: target,
+            }
+          }
+        );
+      };
+
+      /* ANIMATION ON LOAD */
+      gsap.to(car, carPosition(exposure1, orbit1, target1));
+
+      /* SLIDE CHANGE */
+      swiper.on('slideChange', function () {
+        if (swiper.activeIndex === 0) {
+          gsap.to(car, carPosition(exposure1, orbit1, target1));
+          page.classList.remove('bg-zinc-900');
+          page.classList.add('bg-slate-200');
+          gsap.to(inner1, innerAnimationActive);
+          gsap.to(title, innerAnimationActive);
+        } else {
+          gsap.to(inner1, innerAnimationHidden);
+          gsap.to(title, innerAnimationHidden);
+        }
+
+        if (swiper.activeIndex === 1) {
+          gsap.to(car, carPosition(exposure2, orbit2, target2));
+          page.classList.remove('bg-slate-200');
+          page.classList.add('bg-zinc-900');
+          gsap.to(inner2, innerAnimationActive);
+        } else {
+          gsap.to(inner2, innerAnimationHidden);
+        }
+
+        if (swiper.activeIndex === 2) {
+          gsap.to(car, carPosition(exposure3, orbit3, target3));
+          page.classList.remove('bg-zinc-900');
+          page.classList.add('bg-slate-200');
+          gsap.to(inner3, innerAnimationActive);
+          gsap.to(bgImage, {
+            duration: 1,
+            delay: 1,
+            ease: Power4.easeOut,
+            autoAlpha: 1,
+            yPercent: -50,
+          });
+        } else {
+          gsap.to(inner3, innerAnimationHidden);
+          gsap.to(bgImage, {
+            duration: 0.5,
+            ease: Power4.easeOut,
+            autoAlpha: 0,
+            yPercent: 0,
+          });
+        }
+
+        if (swiper.activeIndex === 3) {
+          gsap.to(car, carPosition(exposure4, orbit4, target4));
+          page.classList.remove('bg-zinc-900');
+          page.classList.add('bg-slate-200');
+          gsap.to(inner4, innerAnimationActive);
+        } else {
+          gsap.to(inner4, innerAnimationHidden);
+        }
+
+        if (swiper.activeIndex === 4) {
+          gsap.to(car, carPosition(exposure5, orbit5, target5));
+          page.classList.remove('bg-slate-200');
+          page.classList.add('bg-zinc-900');
+          gsap.to(inner5, innerAnimationActive);
+        } else {
+          gsap.to(inner5, innerAnimationHidden);
+        }
+      });
+
+      /* WINDOW RESIZE CAR POSITION */
+      swiper.on('resize', function () {
+        setCarPosition();
+
+        if (swiper.activeIndex === 0) {
+          gsap.to(car, carPosition(exposure1, orbit1, target1));
+        } else if (swiper.activeIndex === 1) {
+          gsap.to(car, carPosition(exposure2, orbit2, target2));
+        } else if (swiper.activeIndex === 2) {
+          gsap.to(car, carPosition(exposure3, orbit3, target3));
+        } else if (swiper.activeIndex === 3) {
+          gsap.to(car, carPosition(exposure4, orbit4, target4));
+        } else if (swiper.activeIndex === 4) {
+          gsap.to(car, carPosition(exposure5, orbit5, target5));
+        }
+      });
+
+      /* SLIDE TO */
+      slideToButtons.forEach((button) => {
+        button.addEventListener('click', (e) => {
+          const index = e.target.dataset.slideTo;
+          if (index !== undefined) {
+            swiper.slideTo(index);
+          }
+          e.preventDefault();
+        });
+      });
+
+      /* PAINT */
+      colorButtons.forEach((button) => {
+        button.addEventListener('click', (e) => {
+          /* CHANGE COLOR */
+          const color = e.target.dataset.color;
+          if (color !== undefined) {
+            paint.pbrMetallicRoughness.setBaseColorFactor(color);
+          }
+
+          /* BUTTON ACTIVE */
+          colorButtons.forEach((otherButton) => {
+            otherButton.classList.remove('active');
+          });
+          e.target.classList.add('active');
+
+          e.preventDefault();
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
